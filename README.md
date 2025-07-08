@@ -41,3 +41,9 @@ venv\Scripts\activate
 ```bash
 pip install -r requirements.txt
 ```
+
+# 4. Run app
+
+```bash
+python src/main.py
+```
