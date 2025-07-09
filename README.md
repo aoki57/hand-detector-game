@@ -1,7 +1,7 @@
 # Game Tepuk Nyamuk dengan Deteteksi Tangan
 
 <p align="center">
-<img src="assets/mosquito.png" width="200" alt="Laravel Logo">
+<img src="assets/img/mosquito.png" width="200" alt="Laravel Logo">
 </p>
 
 ## Teknologi yang Digunakan
@@ -16,10 +16,6 @@
 
 ```bash
 git clone https://github.com/aoki57/hand-detector-game.git
-```
-
-```bash
-cd hand-detector-game
 ```
 
 ```bash
