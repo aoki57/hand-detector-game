@@ -1,4 +1,4 @@
-#insect.py
+# insect.py
 import pygame
 import random
 from settings import *
@@ -9,10 +9,10 @@ class Insect:
         self.screen = screen
         self.point_value = point_value
 
-        scale = random.uniform(0.7, 1.0)
+        scale = random.uniform(*INSECT_SIZE_RANDOMIZE)
         self.image = pygame.transform.scale(
             self.image,
-            (int(INSECT_SIZE*scale), int(INSECT_SIZE*scale))
+            (int(INSECT_SIZE * scale), int(INSECT_SIZE * scale))
         )
 
         if random.choice([True, False]):
@@ -32,8 +32,8 @@ class Insect:
         if self.rect.left <= 0 or self.rect.right >= self.screen.get_width():
             self.speed_x *= -1
         if self.rect.top <= 0 or self.rect.bottom >= self.screen.get_height():
-            self.speed_x *= -1
-        
+            self.speed_y *= -1
+
         self.screen.blit(self.image, self.rect)
     
     def is_clicked(self, pos):

@@ -8,12 +8,14 @@ class Hand:
         self.rect = self.image.get_rect()
         self.image = pygame.transform.scale(self.image, (60, 120))
 
-    def update(self):
-        pos = pygame.mouse.get_pos()
+    def update(self, hand_position=None):
+        if hand_position is not None:
+            pos = hand_position
+        else:
+            pos = pygame.mouse.get_pos()
         
-        # Offset untuk geser gambar agar telapak tangan sejajar kursor
-        offset_x = 100
-        offset_y = 220  # Geser ke atas, sesuaikan nilai sampai pas
+        offset_x = -30  # disesuaikan agar posisi telapak tangan pas
+        offset_y = -30
 
         self.rect.centerx = pos[0] + offset_x
         self.rect.centery = pos[1] + offset_y
