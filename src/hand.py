@@ -12,8 +12,8 @@ class Hand:
         pos = pygame.mouse.get_pos()
         
         # Offset untuk geser gambar agar telapak tangan sejajar kursor
-        offset_x = 165
-        offset_y = 330  # Geser ke atas, sesuaikan nilai sampai pas
+        offset_x = 100
+        offset_y = 220  # Geser ke atas, sesuaikan nilai sampai pas
 
         self.rect.centerx = pos[0] + offset_x
         self.rect.centery = pos[1] + offset_y

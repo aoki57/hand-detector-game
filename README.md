@@ -26,7 +26,7 @@ cd hand-detector-game
 cd hand-detector-game
 ```
 
-# 2. Create virtual environtment
+# 2. Jika menggunakan virtual environment
 
 ```bash
 python -m venv venv
