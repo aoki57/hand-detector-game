@@ -28,6 +28,50 @@ class HandDetector:
                 all_hands.append(hand_points)
 
                 if draw:
-                    self.mp_draw.draw_landmarks(img, hand_landmarks, self.mp_hands.HAND_CONNECTIONS)
+                    # Deteksi warna: hijau jika mengepal (fingers = 0), merah jika terbuka
+                    finger_count = self.count_fingers(hand_points)
+
+                    if finger_count == 0:
+                        color = (0, 255, 0)  # Hijau
+                    else:
+                        color = (0, 0, 255)  # Merah
+
+                    self.draw_landmarks_custom(img, hand_landmarks, color)
 
         return img, all_hands
+    
+    def count_fingers(self, hand_points):
+        if len(hand_points) < 21:
+            return 0  # Tidak lengkap
+
+        fingers = []
+
+        # Thumb: bandingkan x, karena orientasi horizontal
+        if hand_points[4][0] > hand_points[3][0]:
+            fingers.append(1)
+        else:
+            fingers.append(0)
+
+        # Fingers: bandingkan y (ujung jari lebih tinggi dari sendi tengah)
+        tips = [8, 12, 16, 20]
+        for tip in tips:
+            if hand_points[tip][1] < hand_points[tip - 2][1]:
+                fingers.append(1)
+            else:
+                fingers.append(0)
+
+        return sum(fingers)  # 0 berarti menggempal
+    
+    def draw_landmarks_custom(self, img, hand_landmarks, color):
+        for connection in self.mp_hands.HAND_CONNECTIONS:
+            start_idx = connection[0]
+            end_idx = connection[1]
+            x0, y0 = int(hand_landmarks.landmark[start_idx].x * img.shape[1]), int(hand_landmarks.landmark[start_idx].y * img.shape[0])
+            x1, y1 = int(hand_landmarks.landmark[end_idx].x * img.shape[1]), int(hand_landmarks.landmark[end_idx].y * img.shape[0])
+            cv2.line(img, (x0, y0), (x1, y1), color, 2)
+
+        for lm in hand_landmarks.landmark:
+            cx, cy = int(lm.x * img.shape[1]), int(lm.y * img.shape[0])
+            cv2.circle(img, (cx, cy), 4, color, cv2.FILLED)
+
+
